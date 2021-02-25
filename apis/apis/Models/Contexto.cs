@@ -12,6 +12,7 @@ namespace apis.Models
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Empregado> Empregado { get; set; }
         public DbSet<Trabalho> Trabalho { get; set; }
+        public DbSet<OndeFicar> OndeFicar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

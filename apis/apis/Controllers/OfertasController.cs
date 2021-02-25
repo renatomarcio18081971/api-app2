@@ -16,6 +16,24 @@ namespace apis.Controllers
             this.contexto = contexto;
         }
 
+        //GET: api/Ofertas
+        [HttpGet()]
+        public ICollection<Ofertas> ObterOfertas()
+        {
+            var retorno = contexto.Ofertas.Select(a => new Ofertas
+            {
+                Anunciante = a.Anunciante,
+                Categoria = a.Categoria,
+                Descricao_Oferta = a.Descricao_Oferta,
+                Destaque = a.Destaque,
+                Id = a.Id,
+                Titulo = a.Titulo,
+                Valor = a.Valor,
+                Imagens = a.Imagens
+            }).ToList();
+            return retorno;
+        }
+
         //GET: api/Ofertas/5
         [HttpGet("{id}")]
         public Ofertas ObterOfertas(int id)
@@ -35,7 +53,7 @@ namespace apis.Controllers
             return retorno;
         }
 
-        //GET: api/Ofertas/categoria/texto
+        //GET: api/Ofertas/{categoria}/categoria
         [HttpGet("{categoria}/categoria")]
         public ICollection<Ofertas> ObterOfertasPorCategoria(string categoria)
         {
@@ -54,21 +72,10 @@ namespace apis.Controllers
             return retorno;
         }
 
-        //GET: api/Ofertas
-        [HttpGet()]
-        public ICollection<Ofertas> ObterOfertas()
+        [HttpGet("{descricao}/descricaooferta")]
+        public ICollection<Ofertas> ObterOfertasPorDescricaoDeOfertas(string descricao)
         {
-            var retorno = contexto.Ofertas.Select(a => new Ofertas
-                                          {
-                                              Anunciante = a.Anunciante,
-                                              Categoria = a.Categoria,
-                                              Descricao_Oferta = a.Descricao_Oferta,
-                                              Destaque = a.Destaque,
-                                              Id = a.Id,
-                                              Titulo = a.Titulo,
-                                              Valor = a.Valor,
-                                              Imagens = a.Imagens
-                                          }).ToList();
+            var retorno = contexto.Ofertas.Where(o => o.Descricao_Oferta.Contains(descricao)).ToList();
             return retorno;
         }
 
